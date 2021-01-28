@@ -80,8 +80,6 @@ test:
 #
 production:
   <<: *default
-  url: <%= ENV['GAMETRACKER_DATABASE_URL'] %>
-  port: <%= ENV['GAMETRACKER_DATABASE_PORT'] %>
-  database: <%= ENV['GAMETRACKER_DATABASE_NAME'] %>
-  username: <%= ENV['GAMETRACKER_DATABASE_USERNAME'] %>
+  database: GameTracker_production
+  username: GameTracker
   password: <%= ENV['GAMETRACKER_DATABASE_PASSWORD'] %>
