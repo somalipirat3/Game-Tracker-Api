@@ -78,7 +78,12 @@ test:
 #   production:
 #     url: <%= ENV['DATABASE_URL'] %>
 #
+
 production:
   <<: *default
-  database: GameTracker_production
-  url: <%= ENV['DATABASE_URL'] %>
+  host     : <%= ENV['DATABASE_HOST'] %>
+  port     : <%= ENV['DATABASE_PORT'] %>
+  username : game-tracker-db
+  password : <%= ENV['DATABASE_PASSWORD'] %>
+  database : game-tracker-db
+  sslmode  : require
