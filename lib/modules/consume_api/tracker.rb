@@ -5,8 +5,8 @@ class ConsumeApi::Tracker
 
     def initialize(options = {})
         @data = options
-        @api_key = Rails.application.credentials.api_keys[:tracker_gg][:key]
-        endpoint = Rails.application.credentials.api_keys[:tracker_gg][:endpoint]
+        @api_key = ENV["TRACKER_GG_API_KEY"]
+        endpoint = ENV["TRACKER_GG_API_ENDPOINT"]
         @endpoint = "#{endpoint}apex/standard/profile/#{@data[:platform]}/#{@data[:username]}"
         @response = self.class.get(@endpoint, headers: {"TRN-Api-Key": @api_key})
     end
