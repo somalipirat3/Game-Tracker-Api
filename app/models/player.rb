@@ -1,5 +1,7 @@
 class Player < ApplicationRecord
     
+    has_many :stats
+    
     before_create :generate_identifier
 
     protected

@@ -6,6 +6,9 @@ Rails.application.routes.draw do
       namespace :apexlegends do 
         resources :game
         resources :players
+
+        get '/search/:platform/:username', to: 'players#search'
+        
       end
     end
   end

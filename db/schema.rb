@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_28_163103) do
+ActiveRecord::Schema.define(version: 2021_01_28_202415) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -40,5 +40,26 @@ ActiveRecord::Schema.define(version: 2021_01_28_163103) do
     t.index ["identifier"], name: "index_players_on_identifier", unique: true
   end
 
+  create_table "stats", force: :cascade do |t|
+    t.bigint "player_id", null: false
+    t.bigint "legend_id", null: false
+    t.string "identifier"
+    t.float "rank"
+    t.float "percentile"
+    t.string "displayName"
+    t.string "displayCategory"
+    t.string "category"
+    t.float "value"
+    t.string "displayValue"
+    t.string "displayType"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["identifier"], name: "index_stats_on_identifier", unique: true
+    t.index ["legend_id"], name: "index_stats_on_legend_id"
+    t.index ["player_id"], name: "index_stats_on_player_id"
+  end
+
   add_foreign_key "legends", "games"
+  add_foreign_key "stats", "legends"
+  add_foreign_key "stats", "players"
 end
