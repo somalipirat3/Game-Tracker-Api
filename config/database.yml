@@ -81,3 +81,4 @@ test:
 production:
   <<: *default
   database: GameTracker_production
+  url: <%= ENV['DATABASE_URL'] %>
