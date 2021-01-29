@@ -3,7 +3,6 @@ class ConsumeApi::SaveData
         @data = data
         @game = game
         @player = player
-        @membership = set_membership
         @saved_stats = 0
         @stats = stats
 
@@ -25,17 +24,13 @@ class ConsumeApi::SaveData
         player = Player.find_or_create_by(username: username, platform: platform)
     end
 
-    def set_membership
-        # Member.find_or_create_by(game_id: game[:id], player_id: player.id)
-    end
 
     def stats
 
         @data[:stats].each do |stat|
-            @saved_stats = @saved_stats +1
             legend = find_legend(stat[:legendName])
             stat[:stat].each do |s|
-
+                @saved_stats = @saved_stats +1
                 stat = Stat.find_or_create_by(player_id: player.id, legend_id: legend.id, displayName: s[:displayName].to_s)
                 .update_attributes!(
                     rank: s[:rank].to_s,
@@ -48,11 +43,7 @@ class ConsumeApi::SaveData
                 )
 
             end
-            
-            
-            
         end
-
         # 
     end
 
