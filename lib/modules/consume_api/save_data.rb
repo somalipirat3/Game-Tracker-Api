@@ -5,28 +5,21 @@ class ConsumeApi::SaveData
         @player = player
         @saved_stats = 0
         @stats = stats
-
     end
 
     def game
        game = Game.find_or_create_by(title: 'Apex Legends')
-       return {
-           id: game.id,
-           title: game.title
-       }
+       return { id: game.id, title: game.title }
     end
 
     def player
         username = @data[:player]['platformUserId'].to_s
         platform = @data[:player]['platformSlug'].to_s
         avatar = @data[:player]['avatarUrl'].to_s
-        # .update_attributes!()
         player = Player.find_or_create_by(username: username, platform: platform)
     end
 
-
     def stats
-
         @data[:stats].each do |stat|
             legend = find_legend(stat[:legendName])
             stat[:stat].each do |s|
@@ -41,7 +34,6 @@ class ConsumeApi::SaveData
                     displayValue: s[:displayValue],
                     displayType: s[:displayType]
                 )
-
             end
         end
         # 
