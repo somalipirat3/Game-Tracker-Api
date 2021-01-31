@@ -8,7 +8,7 @@ class V1::Games::Apexlegends::PlayersController < ApplicationController
     def show
         @player  = Player.find_by_id(params[:id])
         @set_legends = []
-        @legends = Legend.all.map 
+        @legends = Legend.all
         @legends.each do |legend|
             @set_legends << {name: legend.name , id: legend.id, stats: Stat.where(legend_id: legend.id, player_id: @player.id)}
         end
