@@ -2,7 +2,7 @@ class V1::Games::Apexlegends::PlayersController < ApplicationController
 
     def index
         @players = Player.all
-        render json: @players
+        render json: @players.map { |player| { username: player.username, platform: player.platform } }
     end
 
     def show
@@ -24,12 +24,9 @@ class V1::Games::Apexlegends::PlayersController < ApplicationController
     def search
         username = params[:username]
         platform = params[:platform]
-        api = ConsumeApi.apexlegends_data({
-            request_type: 'profile',
-            platform: platform,
-            username: username 
-        })
-        render json: api
+        @player = Player.find_or_create_by(username: username, platform: platform)
+        PlayerWorker.perform({request_type: 'profile', platform: platform, username: username })
+        render json: @player
     end
 
 end
